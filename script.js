@@ -9,12 +9,17 @@ var checkBoxes, boxesChekeds;
 
 $(document).ready(function () {
 
-
+    init();
     $('#addTask').on('click', addTask);
     $('#tasks').on('change','.completeTask', completeTask);
     $('#tasks').on('click', '.deleteTask', deleteTask);
     updateProgressTasks();
-
+    
+    $('#changeBackground').on('click', changeBG);
+    $('#increaseFont').on('click', increaseFont);
+    $('#decreaseFont').on('click', decreaseFont);
+    $('#reset').on('click', reset);
+    
     function addTask() {
         var newTaskText = $('#newTask').val();
         $('#newTask').val("");
@@ -72,6 +77,29 @@ $(document).ready(function () {
         return parseInt(percent);
     }
 
+
+    function changeBG() {
+        $('body').css("background-color","#dccfd8");
+    }
+
+    function increaseFont() {
+        $('body').css({"font-size":"20px"});
+    }
+
+    function decreaseFont() {
+        $('body').css({"font-size":"14px"});
+    }
+
+    function reset() {
+        $('body').css("background-color","#ffffff");
+        $('body').css({"font-size":"14px"});
+    }
+
+    function init() {
+        appendTask('Desligar o farol do carro');
+        appendTask('Fazer compras');
+        appendTask('Assistir Harry Potter e os bichos');
+    }
 
 
 });
