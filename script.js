@@ -5,8 +5,6 @@
 var trashIco = '<span class="glyphicon glyphicon-trash deleteTask"></span>';
 var checkbox = '<input name="input" class="completeTask" type="checkbox" id ="check">';
 
-var progressBar = $(".progress-bar");
-
 var checkBoxes, boxesChekeds;
 
 $(document).ready(function () {
@@ -15,26 +13,37 @@ $(document).ready(function () {
     $('#addTask').on('click', addTask);
     $('#tasks').on('change','.completeTask', completeTask);
     $('#tasks').on('click', '.deleteTask', deleteTask);
+    updateProgressTasks();
 
     function addTask() {
         var newTaskText = $('#newTask').val();
-        $('#tasks').append('<li>' + checkbox + newTaskText + trashIco + '</li>');
         $('#newTask').val("");
+        appendTask(newTaskText);
+
     };
 
+    function appendTask(newTaskText) {
+        $('#tasks').append('<li>' + checkbox + newTaskText + trashIco + '</li>');
+        updateProgressTasks();
+    }
 
     function completeTask() {
         $(this).parent().toggleClass('done');
+        updateProgressTasks();
     }
     
     function deleteTask() {
         $(this).parent().remove();
-        $('#textPercent').text('uhuuuuuul');
+        updateProgressTasks();
     }
 
     function updateProgressTasks() {
         countCheckBox();
-        progressBar.width('30%');
+        var percent = String(calculatePercent()) + '%';
+        $(".progress-bar").width(percent);
+        $("#textPercent").text('Progress: ' + percent);
+
+
     }
 
     function countCheckBox() {
@@ -43,8 +52,6 @@ $(document).ready(function () {
         checkBoxes = 0;
         boxesChekeds = 0;
         inputs = document.getElementsByTagName('input');
-
-        alert(inputs.length);
 
         for(i = 0; i < inputs.length; i++){
             if(inputs[i].type == 'checkbox' && inputs[i].id == 'check'){
@@ -58,7 +65,11 @@ $(document).ready(function () {
     }
     
     function calculatePercent() {
-
+        if(checkBoxes == 0){
+            return 0;
+        }
+        var percent = (100 * boxesChekeds)/checkBoxes;
+        return parseInt(percent);
     }
 
 
