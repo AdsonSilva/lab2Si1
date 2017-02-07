@@ -19,8 +19,9 @@ $(document).ready(function () {
     $('#increaseFont').on('click', increaseFont);
     $('#decreaseFont').on('click', decreaseFont);
     $('#reset').on('click', reset);
+
     $('#newList').on('click', newList);
-    
+
     function addTask() {
         var newTaskText = $('#newTask').val();
         $('#newTask').val("");
@@ -108,6 +109,26 @@ $(document).ready(function () {
             url: 'http://192.168.130.215:8080/todoList/getById/5899c79087dc8d1980e5cce0',
             success: function (data) {
                 alert("Name: " + data.name);
+            },
+            error: function (erro) {
+                console.log("erro: " + JSON.stringify(erro));
+                //console.log(data);
+            }
+        });
+    }
+
+    $(document).ready(loadLists());
+
+    function loadLists() {
+        var box = $('.todoLists');
+        $.ajax({
+            type: 'GET',
+            url: 'http://192.168.130.215:8080/todoList/all',
+            success: function (TodoLists) {
+                $.each(TodoLists, function(index, list){
+                    box.append('<button type="button" id=' + list.id +
+                        ' class="list-group-item">' + list.name + '</button>');
+                })
             },
             error: function (erro) {
                 console.log("erro: " + JSON.stringify(erro));

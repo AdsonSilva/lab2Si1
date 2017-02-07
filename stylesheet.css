@@ -27,3 +27,12 @@ input[type=checkbox] {
 #textPercent {
     margin-left: 40%;
 }
+
+.todoLists {
+    float: left; width: 20%; padding-top:50px;}
+
+.container {width: 90%;}
+
+#layout{
+    margin-top: 50px;
+}
