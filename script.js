@@ -19,6 +19,7 @@ $(document).ready(function () {
     $('#increaseFont').on('click', increaseFont);
     $('#decreaseFont').on('click', decreaseFont);
     $('#reset').on('click', reset);
+    $('#newList').on('click', newList);
     
     function addTask() {
         var newTaskText = $('#newTask').val();
@@ -99,6 +100,20 @@ $(document).ready(function () {
         appendTask('Desligar o farol do carro');
         appendTask('Fazer compras');
         appendTask('Assistir Harry Potter e os bichos');
+    }
+    
+    function newList() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://192.168.130.215:8080/todoList/getById/5899c79087dc8d1980e5cce0',
+            success: function (data) {
+                alert("Name: " + data.name);
+            },
+            error: function (erro) {
+                console.log("erro: " + JSON.stringify(erro));
+                //console.log(data);
+            }
+        });
     }
 
 
